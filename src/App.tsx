@@ -1,10 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { axiosInstance as axi } from './api/setupAxios'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [responseData, setResponseData] = useState([])
+
+  useEffect(() => {
+    axi.get('itemrecords').then((response) => {
+      console.debug('got response:', response)
+      setResponseData(response.data)
+    })
+  }, [])
 
   return (
     <div className="App">
